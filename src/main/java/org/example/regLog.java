@@ -9,9 +9,11 @@ public class regLog {
     public static void registration(String[] userPass) {
         try {
             Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
-            PreparedStatement st = connection.prepareStatement("INSERT INTO register (email_address, password) VALUES (?,?)");
+            PreparedStatement st = connection.prepareStatement("INSERT INTO register (first_name, last_name, email_address, password) VALUES (?,?,?,?)");
             st.setString(1, userPass[0]);
             st.setString(2, userPass[1]);
+            st.setString(3, userPass[2]);
+            st.setString(4, userPass[3]);
             st.executeUpdate();
             System.out.println("Successful");
         }catch (Exception e) {
