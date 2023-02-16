@@ -7,26 +7,29 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Main {
-
-
+    static Scanner scanner = new Scanner(System.in);
+    public static String[] userInfo() {
+        System.out.print("Enter your email address: \n>");
+        String username = scanner.nextLine();
+        System.out.print("Enter your password: \n>");
+        String password = scanner.nextLine();
+        return new String[]{username, password};
+    }
     public static void main(String[] args) {
-        boolean loggedIn = false;
-        Scanner scanner = new Scanner(System.in);
+        String loggedIn = "Unsuccessful";
         System.out.println("------Welcome to Databank!------");
-        while (!loggedIn) {
+        while (loggedIn.equals("Unsuccessful")) {
             System.out.print("Do you want to Login or Register?\n>");
             String userInput = scanner.nextLine();
-            System.out.println(userInput);
             switch (userInput) {
                 case "Login":
-                    System.out.println("Joe");
+                    loggedIn = regLog.login(userInfo());
+                    break;
                 case "Register":
-                    System.out.print("Enter your email address: \n>");
-                    String username = scanner.nextLine();
-                    System.out.print("Enter your password: \n>");
-                    String password = scanner.next();
-                    loggedIn = regLog.registration(username, password);
+                    regLog.registration(userInfo());
+                    break;
             }
         }
+        System.out.println(loggedIn);
     }
 }
