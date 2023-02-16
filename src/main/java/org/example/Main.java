@@ -1,9 +1,6 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Scanner;
 import java.util.*;
 
@@ -43,6 +40,7 @@ public class Main {
                     break;
             }
         }
+        System.out.println("LoggedIn Succesfully");
         System.out.println(loggedIn);
 //        System.out.println("------Welcome to Databank!------");
 //        System.out.println("While logged in you can:");
