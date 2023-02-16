@@ -1,9 +1,6 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
@@ -30,6 +27,7 @@ public class Main {
                     break;
             }
         }
+        System.out.println("LoggedIn Succesfully");
         System.out.println(loggedIn);
     }
 }
