@@ -16,9 +16,14 @@ public class regLog {
     }
     public static void registration(String[] userPass) {
         try {
+<<<<<<< HEAD
             Connection connection = Main.getConnection();
             PreparedStatement st = connection.prepareStatement("INSERT INTO register (first_name, last_name, email_address, password) VALUES (?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
+=======
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "Sept0905");
+            PreparedStatement st = connection.prepareStatement("INSERT INTO register (first_name, last_name, email_address, password) VALUES (?,?,?,?)");
+>>>>>>> 25e01b099173ea27b0f14701970e72ddadec7dd8
             st.setString(1, userPass[0]);
             st.setString(2, userPass[1]);
             st.setString(3, userPass[2]);
@@ -43,7 +48,7 @@ public class regLog {
 
     public static String login(String[] userPass) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "Sept0905");
             PreparedStatement st = connection.prepareStatement("SELECT email_address, password FROM register");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
