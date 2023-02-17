@@ -13,7 +13,7 @@ public class tax {
 
     public static String login(String[] userPass) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "Sept0905");
             PreparedStatement st = connection.prepareStatement("SELECT email_address, password FROM register");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {

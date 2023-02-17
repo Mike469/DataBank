@@ -17,7 +17,8 @@ public class regLog {
     public static void registration(String[] userPass) {
         try {
             Connection connection = Main.getConnection();
-            PreparedStatement st = connection.prepareStatement("INSERT INTO register (first_name, last_name, email_address, password) VALUES (?,?,?,?)");
+            PreparedStatement st = connection.prepareStatement("INSERT INTO register (first_name, last_name, email_address, password) VALUES (?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
             st.setString(1, userPass[0]);
             st.setString(2, userPass[1]);
             st.setString(3, userPass[2]);

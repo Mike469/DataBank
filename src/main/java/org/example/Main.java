@@ -1,15 +1,18 @@
 package org.example;
-
+import javax.swing.*;
 import java.sql.*;
 import java.util.Scanner;
 import java.util.*;
 
+
 public class Main {
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "Sept0905");
     }
     static Scanner scanner = new Scanner(System.in);
     public static String[] userInfo() {
+
+// -------------------Mike's Login Stuff----------------------------
         System.out.print("Enter your email address: \n>");
         String username = scanner.nextLine();
         System.out.print("Enter your password: \n>");
@@ -18,7 +21,7 @@ public class Main {
     }
 
     public static String[] registerInfo() {
-        System.out.print("Enter your 'preferred' first name: \n>");
+        System.out.print("Enter your 'preferred' first name:\n>");
         String firstname = scanner.nextLine();
         System.out.print("Enter your last name: \n>");
         String lastname = scanner.nextLine();
@@ -36,37 +39,22 @@ public class Main {
         while (loggedIn.equals("Unsuccessful")) {
             System.out.print("Do you want to Login or Register?\n>");
             String userInput = scanner.nextLine();
+            userInput = userInput.toLowerCase();
+            userInput = userInput.trim();
             switch (userInput) {
-                case "Login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
                 case "login":
                     loggedIn = regLog.login(userInfo());
                     break;
-                case " Login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-                case " login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-        //------------------------ Register --------------------------------
-                case "Register":
-                    regLog.registration(registerInfo());
-                    break;
                 case "register":
-                    loggedIn = regLog.login(registerInfo());
-                    break;
-                case " Register":
-                    loggedIn = regLog.login(registerInfo());
-                    break;
-                case " register":
-                    loggedIn = regLog.login(registerInfo());
+                    regLog.registration(registerInfo());
                     break;
             }
         }
-        System.out.println("LoggedIn Succesfully");
+        System.out.println("Logged In Succesfully");
         System.out.println(loggedIn);
-        System.out.println("------Welcome to Databank!------");
+        // Welcome message should say welcome to the specific user
+        System.out.println("------Welcome User------");
+        //--------------------------------------------------------
         System.out.println("While logged in you can:");
         System.out.println("- DEPOSIT");
         System.out.println("- WITHDRAW");
@@ -77,20 +65,22 @@ public class Main {
         while (loggedOut.equals("No")) {
             System.out.print("> ");
             String accessInput = scanner.nextLine();
-            if (accessInput.equals("Deposit") || accessInput.equals("DEPOSIT") || accessInput.equals("deposit")) {
-                System.out.println("'Deposit' not yet available!");
-            } else if (accessInput.equals("Withdraw") || accessInput.equals("WITHDRAW") || accessInput.equals("withdraw")) {
-                System.out.println("'Withdraw' not yet available!");
-            } else if (accessInput.equals("Balance") || accessInput.equals("BALANCE") || accessInput.equals("balance")) {
-                System.out.println("'Balance' not yet available!");
-            } else if (accessInput.equals("View") || accessInput.equals("VIEW") || accessInput.equals("view")) {
-                System.out.println("'View' not yet available!");
-            } else if (accessInput.equals("Log out") || accessInput.equals("Logout") || accessInput.equals("log out") || accessInput.equals("logout")) {
+            accessInput = accessInput.toLowerCase();
+            accessInput = accessInput.trim();
+            if (accessInput.equals("deposit")) {
+                System.out.println("Deposit not yet available!");
+            } else if (accessInput.equals("withdraw")) {
+                System.out.println("Withdraw not yet available!");
+            } else if (accessInput.equals("balance")) {
+                System.out.println("Balance not yet available!");
+            } else if (accessInput.equals("view")) {
+                System.out.println("View not yet available!");
+            } else if (accessInput.equals("logout")) {
                 break;
             } else {
                 System.out.println("INVALID!");
             }
         }
-
     }
+
 }
