@@ -5,9 +5,6 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Main {
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
-    }
     static Scanner scanner = new Scanner(System.in);
     public static String[] userInfo() {
         System.out.print("Enter your email address: \n>");
@@ -29,8 +26,8 @@ public class Main {
         return new String[]{firstname, lastname, email, accountPassword};
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws SQLException {
+        NameSort.fname_search("Mike");
         String loggedIn = "Unsuccessful";
         System.out.println("------Welcome to Databank!------");
         while (loggedIn.equals("Unsuccessful")) {

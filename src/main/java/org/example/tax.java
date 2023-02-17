@@ -1,34 +1,91 @@
 package org.example;
+import java.sql.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class tax {
-    float GarbageCollectorFee = 0.99f;
-    float ComercialStackOverflowFee = 0.85f;
+    static float GarbageCollectorFee = 0.99f;
+    static float ComercialStackOverflowFee = 0.85f;
 
 
 
 
-    public static String login(String[] userPass) {
+    public static void GarbageCollectorFee() {
+        Connection connection = null;
+        Statement statement = null;
+        // bottom is copypaste
+        ConnectDB obj_connection = new ConnectDB();
+        connection = obj_connection.get_connection();
+        ResultSet rs = null;
         try {
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/databank", "postgres", "root");
-            PreparedStatement st = connection.prepareStatement("SELECT email_address, password FROM register");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("email_address").equals(userPass[0]) && rs.getString("password").equals(userPass[1])) {
-                    return userPass[0];
-                };
+            String query = "SELECT * FROM customer";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+
+            while(rs.next()){
+                // need the id to change specific balance
+                int idAccount = (rs.getInt(1));
+                // prints the account number for validation
+                System.out.println(rs.getString(2));
+                // need the current total for math
+                int currentTotal = (rs.getInt(3));
+                // print the current total for validation
+                System.out.println(currentTotal );
+                // does the float math for new balance
+                float newBalance = (currentTotal * GarbageCollectorFee);
+                System.out.println(newBalance );
+                // updates the tables with bottom command
+                String commandUpdateTax = "UPDATE customer SET total = '" + newBalance + "' WHERE id = '"+ idAccount + "'";
+                // need a statement to run commandUpdateTax
+                statement = connection.createStatement();
+                // runs commandUpdateTax
+                statement.executeUpdate(commandUpdateTax);
+                // prints if worked or nah
+                System.out.println("Update worked");
+
+
             }
-            rs.close();
-            st.close();
-            return "Unsuccessful";
-        }catch (Exception e ) {
-            System.out.println(e);
-            System.out.println("Unsuccessful");
-            return "Unsuccessful";
-        }
+
+
+        } catch (Exception e) {System.out.println("Broken");}
+    }
+    public static void ComercialStackOverflowFee () {
+        Connection connection = null;
+        Statement statement = null;
+        // bottom is copypaste
+        ConnectDB obj_connection = new ConnectDB();
+        connection = obj_connection.get_connection();
+        ResultSet rs = null;
+        try {
+            String query = "SELECT * FROM customer";
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+
+            while(rs.next()){
+                // need the id to change specific balance
+                int idAccount = (rs.getInt(1));
+                // prints the account number for validation
+                System.out.println(rs.getString(2));
+                // need the current total for math
+                int currentTotal = (rs.getInt(3));
+                // print the current total for validation
+                System.out.println(currentTotal );
+                // does the float math for new balance
+                float newBalance = (currentTotal * ComercialStackOverflowFee);
+                System.out.println(newBalance );
+                // updates the tables with bottom command
+                String commandUpdateTax = "UPDATE customer SET total = '" + newBalance + "' WHERE id = '"+ idAccount + "'";
+                // need a statement to run commandUpdateTax
+                statement = connection.createStatement();
+                // runs commandUpdateTax
+                statement.executeUpdate(commandUpdateTax);
+                // prints if worked or nah
+                System.out.println("Update worked");
+
+
+            }
+
+
+        } catch (Exception e) {System.out.println("Broken");}
     }
 
 }
