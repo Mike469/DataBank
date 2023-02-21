@@ -1,8 +1,11 @@
 package org.example;
 
+import javax.naming.Name;
 import java.sql.*;
 import java.util.Scanner;
 import java.util.*;
+
+import static org.example.CustomerFuncs.*;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -27,67 +30,117 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-        NameSort.fname_search("Mike");
         String loggedIn = "Unsuccessful";
         System.out.println("------Welcome to Databank!------");
         while (loggedIn.equals("Unsuccessful")) {
             System.out.print("Do you want to Login or Register?\n>");
             String userInput = scanner.nextLine();
-            switch (userInput) {
-                case "Login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-                case "login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-                case " Login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-                case " login":
-                    loggedIn = regLog.login(userInfo());
-                    break;
-        //------------------------ Register --------------------------------
-                case "Register":
-                    regLog.registration(registerInfo());
-                    break;
-                case "register":
-                    loggedIn = regLog.login(registerInfo());
-                    break;
-                case " Register":
-                    loggedIn = regLog.login(registerInfo());
-                    break;
-                case " register":
-                    loggedIn = regLog.login(registerInfo());
-                    break;
+            if (userInput == null || userInput.trim().isEmpty()) {
+                System.out.println("Invalid Input.");
             }
-        }
-        System.out.println("LoggedIn Succesfully");
-        System.out.println(loggedIn);
-        System.out.println("------Welcome to Databank!------");
-        System.out.println("While logged in you can:");
-        System.out.println("- DEPOSIT");
-        System.out.println("- WITHDRAW");
-        System.out.println("- BALANCE");
-        System.out.println("- [VIEW] ACCOUNT HISTORY");
-        System.out.println("- LOGOUT");
-        String loggedOut = "No";
-        while (loggedOut.equals("No")) {
-            System.out.print("> ");
-            String accessInput = scanner.nextLine();
-            if (accessInput.equals("Deposit") || accessInput.equals("DEPOSIT") || accessInput.equals("deposit")) {
-                System.out.println("'Deposit' not yet available!");
-            } else if (accessInput.equals("Withdraw") || accessInput.equals("WITHDRAW") || accessInput.equals("withdraw")) {
-                System.out.println("'Withdraw' not yet available!");
-            } else if (accessInput.equals("Balance") || accessInput.equals("BALANCE") || accessInput.equals("balance")) {
-                System.out.println("'Balance' not yet available!");
-            } else if (accessInput.equals("View") || accessInput.equals("VIEW") || accessInput.equals("view")) {
-                System.out.println("'View' not yet available!");
-            } else if (accessInput.equals("Log out") || accessInput.equals("Logout") || accessInput.equals("log out") || accessInput.equals("logout")) {
-                break;
-            } else {
-                System.out.println("INVALID!");
-            }
-        }
+            else if (userInput.trim().matches("(?i)login|register")) {
+                switch (userInput.toLowerCase().trim()) {
+                    case "login" -> loggedIn = regLog.login(userInfo());
+                    case "register" -> regLog.registration(registerInfo());
+                }
+        }}
+        if (loggedIn.equals("kevinadmin@gmail.com")) {
+            while (true) {
+                Scanner scan = new Scanner(System.in);
 
+                System.out.println("What needs to be accessed?");
+                System.out.println("1. User data");
+                System.out.println("2. Fee processing");
+                System.out.print("3. Logout \n>");
+                String userInput = scan.nextLine().toUpperCase();
+                if (userInput.equals("1")) {
+                    Scanner scan1 = new Scanner(System.in);
+                    System.out.println("User data search format");
+                    System.out.println("1. Find specific user");
+                    System.out.print("2. Read all data \n>");
+                    String userInput1 = scan1.nextLine().toUpperCase();
+                    if (userInput1.equals("1")) {
+                        Scanner scan2 = new Scanner(System.in);
+                        System.out.println("How do you want to find user?");
+                        System.out.println("1. First name");
+                        System.out.print("2. Last name \n>");
+                        String userInput2 = scan2.nextLine().toUpperCase();
+                        if (userInput2.equals("1")) {
+                            Scanner scan3 = new Scanner(System.in);
+                            System.out.print("Enter name: ");
+                            String userInput3 = scan3.nextLine();
+                            NameSort.fname_search(userInput3);
+                        } else if (userInput2.equals("2")) {
+                            Scanner scan3 = new Scanner(System.in);
+                            System.out.print("Enter name: ");
+                            String userInput3 = scan3.nextLine();
+                            NameSort.lname_search(userInput3);
+                        } else {
+                            System.out.println("Not a authorized command.");
+                        }
+                    } else if (userInput1.equals("2")) {
+                        Scanner scan2 = new Scanner(System.in);
+                        System.out.println("Sort user data.");
+                        System.out.println("1. alphabetically");
+                        System.out.print("2. descending \n>");
+                        String userInput2 = scan2.nextLine().toUpperCase();
+                        if (userInput2.equals("1")) {
+                            NameSort.a_z();
+                        } else if (userInput2.equals("2")) {
+                            NameSort.z_a();
+                        } else {
+                            System.out.println("Not a authorized command.");
+                        }
+                    }
+                } else if (userInput.equals("2")) {
+                    Scanner scan1 = new Scanner(System.in);
+                    System.out.println("Select fee's to apply to customers.");
+                    System.out.println("1. Garbage Collector Fee");
+                    System.out.print("2. Comercial StackOverflow Fee \n>");
+                    String userInput1 = scan1.nextLine();
+                    if (userInput1.equals("1")) {
+                        tax.GarbageCollectorFee();
+                    }
+                    else if(userInput1.equals("2")){
+                        tax.ComercialStackOverflowFee();
+                    }
+                    else {System.out.println("Not a authorized command.");}
+                }
+                else if(userInput.equals("3")){break;}
+                else {System.out.println("Not a authorized command.");}
+            }
+        } else{
+                System.out.println("LoggedIn Succesfully");
+                System.out.println(loggedIn);
+                System.out.println("------Welcome " + emailToName(loggedIn).substring(0,1).toUpperCase() + emailToName(loggedIn).substring(1).toLowerCase() +"!------");
+                System.out.println("While logged in you can:");
+                while (true) {
+                    System.out.println("- DEPOSIT");
+                    System.out.println("- WITHDRAW");
+                    System.out.println("- BALANCE");
+                    System.out.println("- [VIEW] ACCOUNT");
+                    System.out.println("- LOGOUT");
+                    System.out.print("> ");
+                    String accessInput = scanner.nextLine();
+                    if (accessInput.trim().equalsIgnoreCase("deposit")) {
+                        System.out.print("How much money do you wanna deposit?\n>");
+                        String amount = scanner.nextLine();
+                        deposit(Integer.parseInt(amount), loggedIn);
+                    } else if (accessInput.trim().equalsIgnoreCase("withdraw")) {
+                        System.out.print("How much money do you wanna withdraw?\n>");
+                        String amount = scanner.nextLine();
+                        withdraw(Integer.parseInt(amount), loggedIn);
+                    } else if (accessInput.trim().equalsIgnoreCase("balance")) {
+                        System.out.println("Total Balance: " + total(emailConversion(loggedIn)));
+                    } else if (accessInput.trim().equalsIgnoreCase("view")) {
+                        view(loggedIn);
+                    } else if (accessInput.trim().equalsIgnoreCase("logout")) {
+                        break;
+                    } else {
+                        System.out.println("INVALID!");
+                    }
+                }
+            }
+        }
     }
-}
+

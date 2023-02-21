@@ -28,12 +28,22 @@ public class CustomerFuncs {
         return 1;
     }
 
+    public static String emailToName(String email) throws SQLException {
+        PreparedStatement st = connection.prepareStatement("SELECT first_name FROM register where email_address = ?");
+        st.setString(1, email);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return rs.getString("first_name");
+        }
+        rs.close();
+        st.close();
+        return "User";
+    }
     public static int total(int id) throws SQLException {
         PreparedStatement st = connection.prepareStatement("Select total FROM customer WHERE register_id = ?");
         st.setInt(1, id);
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
-            System.out.println(rs.getInt("total"));
             return rs.getInt("total");
         }
         rs.close();
@@ -42,7 +52,7 @@ public class CustomerFuncs {
     }
     public static void withdraw(int amount, String email) throws SQLException {
         PreparedStatement st = connection.prepareStatement("UPDATE customer SET total = ? WHERE register_id = ?");
-        int withdrawl = amount - total(emailConversion(email));
+        int withdrawl = total(emailConversion(email) - amount);
         st.setInt(1, withdrawl);
         st.setInt(2, emailConversion(email));
         st.executeUpdate();
@@ -61,7 +71,7 @@ public class CustomerFuncs {
         st.setInt(1, emailConversion(email));
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
-            System.out.println("Account Number: " + rs.getString("account_num") + "\nTotal Amount: " + rs.getString("total"));
+            System.out.println("Account Number: " + rs.getString("account_num") + "\nTotal Amount: $" + rs.getString("total"));
         }
         rs.close();
         st.close();

@@ -25,14 +25,14 @@ public class tax {
                 // need the id to change specific balance
                 int idAccount = (rs.getInt(1));
                 // prints the account number for validation
-                System.out.println(rs.getString(2));
+
                 // need the current total for math
                 int currentTotal = (rs.getInt(3));
                 // print the current total for validation
-                System.out.println(currentTotal );
+
                 // does the float math for new balance
                 float newBalance = (currentTotal * GarbageCollectorFee);
-                System.out.println(newBalance );
+
                 // updates the tables with bottom command
                 String commandUpdateTax = "UPDATE customer SET total = '" + newBalance + "' WHERE id = '"+ idAccount + "'";
                 // need a statement to run commandUpdateTax
@@ -40,11 +40,11 @@ public class tax {
                 // runs commandUpdateTax
                 statement.executeUpdate(commandUpdateTax);
                 // prints if worked or nah
-                System.out.println("Update worked");
+
 
 
             }
-
+            System.out.println("Garbage Collector Fee has been applied.");
 
         } catch (Exception e) {System.out.println("Broken");}
     }
@@ -64,14 +64,14 @@ public class tax {
                 // need the id to change specific balance
                 int idAccount = (rs.getInt(1));
                 // prints the account number for validation
-                System.out.println(rs.getString(2));
+
                 // need the current total for math
                 int currentTotal = (rs.getInt(3));
                 // print the current total for validation
-                System.out.println(currentTotal );
+
                 // does the float math for new balance
                 float newBalance = (currentTotal * ComercialStackOverflowFee);
-                System.out.println(newBalance );
+
                 // updates the tables with bottom command
                 String commandUpdateTax = "UPDATE customer SET total = '" + newBalance + "' WHERE id = '"+ idAccount + "'";
                 // need a statement to run commandUpdateTax
@@ -79,11 +79,11 @@ public class tax {
                 // runs commandUpdateTax
                 statement.executeUpdate(commandUpdateTax);
                 // prints if worked or nah
-                System.out.println("Update worked");
+
 
 
             }
-
+            System.out.println("Comercial StackOverflow Fee has been applied.");
 
         } catch (Exception e) {System.out.println("Broken");}
     }
