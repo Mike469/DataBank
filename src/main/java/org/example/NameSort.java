@@ -30,27 +30,24 @@ public class NameSort {
             Integer i = 1;
 
 // while rs(rs is all customers now looping) is looping
-            if (rs.next()){
-            while(rs.next()){
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
-                int accountNum = rs.getInt("account_num");
-                float total = rs.getFloat("total");
-
-                System.out.println(i + ".) " + lastName + ", " + firstName );
-                System.out.println("  - Account #"+ accountNum);
-                System.out.println("  - Total : $" + total);
-                i++;
-
-
-
-
-            }}
-
-            else{
+            if(rs.next() == false){
                 System.out.println("");
                 System.out.println("\u001B[31mName not in system\u001B[0m");
                 System.out.println("");
+            }
+            else {
+                do {
+
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    int accountNum = rs.getInt("account_num");
+                    float total = rs.getFloat("total");
+
+                    System.out.println(i + ".) " + lastName + ", " + firstName );
+                    System.out.println("  - Account #"+ accountNum);
+                    System.out.println("  - Total : $" + total);
+                    i++;
+                } while (rs.next());
             }
 
 
@@ -80,32 +77,36 @@ public class NameSort {
             Integer i = 1;
 
 // while rs(rs is all customers now looping) is looping
-            if (rs.next()){
-                while(rs.next()){
+
+
+            if(rs.next() == false){
+                System.out.println("");
+                System.out.println("\u001B[31mName not in system\u001B[0m");
+                System.out.println("");
+            }
+            else {
+                do {
+
                     String firstName = rs.getString("first_name");
                     String lastName = rs.getString("last_name");
                     int accountNum = rs.getInt("account_num");
                     float total = rs.getFloat("total");
 
-                    System.out.println(i + ".) " + lastName + ", " + firstName );
+                    System.out.println(i + ".) " + firstName + ", " + lastName );
                     System.out.println("  - Account #"+ accountNum);
                     System.out.println("  - Total : $" + total);
                     i++;
-
-
-
-
-                }}
-
-            else{
-                System.out.println("");
-                System.out.println("\u001B[31mName not in system\u001B[0m");
-                System.out.println("");
+                } while (rs.next());
             }
 
 
-        } catch (Exception e) {System.out.println("Name not workin");}
-    }
+
+
+        } catch (Exception e) {
+            System.out.println("\u001B[31mName not in system\u001B[0m");
+            System.out.println("");
+        }}
+
 
     public static void a_z() {
 

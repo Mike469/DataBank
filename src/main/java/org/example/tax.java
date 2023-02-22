@@ -20,8 +20,9 @@ public class tax {
             String query = "SELECT * FROM customer";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
-
+            int i = 0;
             while(rs.next()){
+                i++;
                 // need the id to change specific balance
                 int idAccount = (rs.getInt(1));
                 // prints the account number for validation
@@ -44,7 +45,9 @@ public class tax {
 
 
             }
-            System.out.println("Garbage Collector Fee has been applied.");
+            System.out.println("");
+            System.out.println("\u001B[32mGarbage Collector Fee has been applied to " +i+ " members.\u001B[0m");
+            System.out.println("");
 
         } catch (Exception e) {System.out.println("Broken");}
     }
@@ -59,8 +62,9 @@ public class tax {
             String query = "SELECT * FROM customer";
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
-
+            int i = 0;
             while(rs.next()){
+                i++;
                 // need the id to change specific balance
                 int idAccount = (rs.getInt(1));
                 // prints the account number for validation
@@ -83,7 +87,10 @@ public class tax {
 
 
             }
-            System.out.println("Comercial StackOverflow Fee has been applied.");
+            System.out.println("");
+            System.out.println("\u001B[32mCommercial Stackoverflow Fee has been applied to " +i+ " members.\u001B[0m");
+
+            System.out.println("");
 
         } catch (Exception e) {System.out.println("Broken");}
     }

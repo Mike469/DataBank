@@ -1,4 +1,5 @@
 package org.example;
+import java.io.Console;
 
 import javax.naming.Name;
 import java.sql.*;
@@ -51,52 +52,50 @@ public class Main {
                 System.out.println("What needs to be accessed?");
                 System.out.println("1. User data");
                 System.out.println("2. Fee processing");
-                System.out.print("3. Logout \n>");
+                System.out.print("3. Logout \n> ");
                 String userInput = scan.nextLine().toUpperCase();
                 if (userInput.equals("1")) {
                     Scanner scan1 = new Scanner(System.in);
                     System.out.println("User data search format");
                     System.out.println("1. Find specific user");
-                    System.out.print("2. Read all data \n>");
+                    System.out.print("2. Read all data \n> ");
                     String userInput1 = scan1.nextLine().toUpperCase();
                     if (userInput1.equals("1")) {
                         Scanner scan2 = new Scanner(System.in);
                         System.out.println("How do you want to find user?");
                         System.out.println("1. First name");
-                        System.out.print("2. Last name \n>");
+                        System.out.print("2. Last name \n> ");
                         String userInput2 = scan2.nextLine().toUpperCase();
                         if (userInput2.equals("1")) {
                             Scanner scan3 = new Scanner(System.in);
                             System.out.print("Enter name: ");
                             String userInput3 = scan3.nextLine();
+
                             NameSort.fname_search(userInput3);
+
                         } else if (userInput2.equals("2")) {
                             Scanner scan3 = new Scanner(System.in);
                             System.out.print("Enter name: ");
                             String userInput3 = scan3.nextLine();
                             NameSort.lname_search(userInput3);
-                        } else {
-                            System.out.println("Not a authorized command.");
-                        }
+                        } else {System.out.println("\u001B[31mNot a authorized command\u001B[0m");}
                     } else if (userInput1.equals("2")) {
                         Scanner scan2 = new Scanner(System.in);
                         System.out.println("Sort user data.");
                         System.out.println("1. alphabetically");
-                        System.out.print("2. descending \n>");
+                        System.out.print("2. descending \n> ");
                         String userInput2 = scan2.nextLine().toUpperCase();
                         if (userInput2.equals("1")) {
                             NameSort.a_z();
                         } else if (userInput2.equals("2")) {
                             NameSort.z_a();
-                        } else {
-                            System.out.println("Not a authorized command.");
-                        }
+                        } else {System.out.println("\u001B[31mNot a authorized command\u001B[0m");}
                     }
                 } else if (userInput.equals("2")) {
                     Scanner scan1 = new Scanner(System.in);
                     System.out.println("Select fee's to apply to customers.");
                     System.out.println("1. Garbage Collector Fee");
-                    System.out.print("2. Comercial StackOverflow Fee \n>");
+                    System.out.print("2. Comercial StackOverflow Fee \n> ");
                     String userInput1 = scan1.nextLine();
                     if (userInput1.equals("1")) {
                         tax.GarbageCollectorFee();
@@ -104,10 +103,10 @@ public class Main {
                     else if(userInput1.equals("2")){
                         tax.ComercialStackOverflowFee();
                     }
-                    else {System.out.println("Not a authorized command.");}
+                    else {System.out.println("\u001B[31mNot a authorized command\u001B[0m");}
                 }
                 else if(userInput.equals("3")){break;}
-                else {System.out.println("Not a authorized command.");}
+                else {System.out.println("\u001B[31mNot a authorized command\u001B[0m");}
             }
         } else{
                 System.out.println("LoggedIn Succesfully");
@@ -127,11 +126,9 @@ public class Main {
                         String amount = scanner.nextLine();
                         deposit(Integer.parseInt(amount), loggedIn);
                     } else if (accessInput.trim().equalsIgnoreCase("withdraw")) {
-                        System.out.print("How much money do you wanna withdraw?\n>");
-                        String amount = scanner.nextLine();
-                        withdraw(Integer.parseInt(amount), loggedIn);
+                        withdraw(loggedIn);
                     } else if (accessInput.trim().equalsIgnoreCase("balance")) {
-                        System.out.println("Total Balance: " + total(emailConversion(loggedIn)));
+                        System.out.println("Total Balance: $" + total(emailConversion(loggedIn)));
                     } else if (accessInput.trim().equalsIgnoreCase("view")) {
                         view(loggedIn);
                     } else if (accessInput.trim().equalsIgnoreCase("logout")) {

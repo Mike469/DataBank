@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.example.Main.scanner;
+
 public class CustomerFuncs {
     public static Connection connection;
 
@@ -50,9 +52,11 @@ public class CustomerFuncs {
         st.close();
         return 0;
     }
-    public static void withdraw(int amount, String email) throws SQLException {
+    public static void withdraw(String email) throws SQLException {
+        System.out.print("How much money do you wanna withdraw?\n>");
+        String amount = scanner.nextLine();
         PreparedStatement st = connection.prepareStatement("UPDATE customer SET total = ? WHERE register_id = ?");
-        int withdrawl = total(emailConversion(email) - amount);
+        int withdrawl = total(emailConversion(email)) - Integer.parseInt(amount);
         st.setInt(1, withdrawl);
         st.setInt(2, emailConversion(email));
         st.executeUpdate();
@@ -71,7 +75,7 @@ public class CustomerFuncs {
         st.setInt(1, emailConversion(email));
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
-            System.out.println("Account Number: " + rs.getString("account_num") + "\nTotal Amount: $" + rs.getString("total"));
+            System.out.println("Account Number: #" + rs.getString("account_num") + "\nTotal Amount: $" + rs.getString("total"));
         }
         rs.close();
         st.close();
